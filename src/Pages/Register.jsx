@@ -21,7 +21,6 @@ const Register = () => {
   const [confirmVisibility, setConfirmVisibility] = useState(false);
   const [isError, setIsError] = useState("");
   const navigate = useNavigate();
-
   const postUser = async (data) => {
     try {
       const res = await axios.post(
@@ -33,19 +32,24 @@ const Register = () => {
           },
         }
       );
-      // console.log(res)
+      const res_data = await res.data;
+      return res_data;
     } catch (err) {
-      setIsError(err.response.data.message)
+      setIsError(err.response.data.message);
+      console.error("msg:", err.response.data.message);
       console.error("Error: ", err.message);
     }
   };
 
   const CreateUser = (e) => {
     e.preventDefault();
-    if (!isError && newUser.password === confirmPassword) {
-      postUser(newUser);
-      navigate("/login");
+    if (newUser.password === confirmPassword) {
+      postUser(newUser).then((res) => {
+        const {email,code}=res.data;
+        navigate("/otp_verify",{state:{otp:code,email:email}});
+      });
     } else {
+      console.error("Error:", "Password does not match");
       setIsError("Password does not match");
     }
   };
@@ -63,8 +67,10 @@ const Register = () => {
             <div id="user_logo">
               <UserLogo />
             </div>
+            <hr />
             <div className="form_heading">
               <p>Register</p>
+              <hr />
             </div>
             {isError && (
               <div id="error_block">
@@ -82,6 +88,7 @@ const Register = () => {
                 value={newUser.email}
                 onChange={OnChangeHandler}
                 placeholder="user email"
+                pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
                 required
               />
             </div>
@@ -90,22 +97,24 @@ const Register = () => {
                 <PasswordIcon />
               </label>
               <input
-                type={visibility ? "text":"password"}
+                type={visibility ? "text" : "password"}
                 name="password"
                 id="password"
                 value={newUser.password}
                 onChange={OnChangeHandler}
                 placeholder="user password"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                title="Must contain at least one  number and one uppercase and lowercase letter, and one special character"
                 required
               />
               <button
                 className="password-visibility"
-                onClick={(e)=> {
-                  e.preventDefault()
-                  setVisibility(!visibility)
+                onClick={(e) => {
+                  e.preventDefault();
+                  setVisibility(!visibility);
                 }}
               >
-                {visibility ? <VisibilityOn /> :<VisibilityOff/> }
+                {visibility ? <VisibilityOff /> : <VisibilityOn />}
               </button>
             </div>
             <div className="form-group">
@@ -113,21 +122,24 @@ const Register = () => {
                 <PasswordIcon />
               </label>
               <input
-                type={confirmVisibility ? "text":"password"}
+                type={confirmVisibility ? "text" : "password"}
                 name="confirmPassword"
                 id="confirmPassword"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="confirm password"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                title="Must contain at least one  number and one uppercase and lowercase letter, and one special character"
                 required
               />
               <button
                 className="password-visibility"
-                onClick={(e)=> {
-                  e.preventDefault()
-                  setConfirmVisibility(!confirmVisibility)}}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setConfirmVisibility(!confirmVisibility);
+                }}
               >
-               {confirmVisibility ? <VisibilityOn /> :<VisibilityOff/> }
+                {confirmVisibility ? <VisibilityOff /> : <VisibilityOn />}
               </button>
             </div>
             {/* <div className="form-group">
