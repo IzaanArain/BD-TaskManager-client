@@ -1,12 +1,10 @@
 import React from "react";
-import { FaUser, FaPhone } from "react-icons/fa";
 import { TfiEmail } from "react-icons/tfi";
 import { RiLockPasswordFill as PasswordIcon } from "react-icons/ri";
 import { FaRegUserCircle as UserLogo } from "react-icons/fa";
 import { MdVisibilityOff as VisibilityOff } from "react-icons/md";
 import { MdVisibility as VisibilityOn } from "react-icons/md";
 import { useState } from "react";
-import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -47,6 +45,7 @@ const Register = () => {
       postUser(newUser).then((res) => {
         const {email,code}=res.data;
         navigate("/otp_verify",{state:{otp:code,email:email}});
+        setIsError("")
       });
     } else {
       console.error("Error:", "Password does not match");
@@ -142,28 +141,6 @@ const Register = () => {
                 {confirmVisibility ? <VisibilityOff /> : <VisibilityOn />}
               </button>
             </div>
-            {/* <div className="form-group">
-            <label htmlFor="name"><FaUser/></label>
-            <input type="text"
-            name='name'
-            id='name'
-            value={newUser.name}
-            onChange={OnChangeHandler}
-            placeholder='user name'
-            required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="phone"><FaPhone/></label>
-            <input type="tel"
-            name='phone'
-            id='phone'
-            value={newUser.phone}
-            onChange={OnChangeHandler}
-            maxLength="11"
-            placeholder='user phone number'
-            required />
-          </div> */}
-
             <input type="submit" id="submit_btn" value="SUBMIT" />
           </form>
         </div>
