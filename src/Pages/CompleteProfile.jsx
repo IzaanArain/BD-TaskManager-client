@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaUser, FaPhone } from "react-icons/fa";
 import { FaRegUserCircle as UserLogo } from "react-icons/fa";
+import {BsFillFileEarmarkImageFill as PictureLogo} from "react-icons/bs" 
+
 const CompleteProfile = () => {
+  const [newUser,setNewUser]=useState({
+    name:"",
+    phone:"",
+    image:""
+  })
   return (
     <>
       <div className="submit_page">
         <div className="submit_form">
-          <form>
+          <form encType="multipart/form-data">
           <div id="user_logo">
               <UserLogo />
             </div>
@@ -39,6 +46,17 @@ const CompleteProfile = () => {
                 placeholder="user phone number"
                 required
               />
+            </div>
+            <div className="form-group">
+            <label htmlFor="image">
+               <PictureLogo/>
+              </label>
+              <input 
+              type="file"
+              name="image"
+              id="image"
+              accept=".png, .jpg, .jpeg, .gif"
+               />
             </div>
             <input type="submit" id="submit_btn" value="SUBMIT" />
           </form>

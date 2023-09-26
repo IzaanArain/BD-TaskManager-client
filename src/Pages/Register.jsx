@@ -35,7 +35,7 @@ const Register = () => {
     } catch (err) {
       setIsError(err.response.data.message);
       console.error("msg:", err.response.data.message);
-      console.error("Error: ", err.message);
+      console.error("Error: ", err.response.data.message);
     }
   };
 
@@ -43,9 +43,11 @@ const Register = () => {
     e.preventDefault();
     if (newUser.password === confirmPassword) {
       postUser(newUser).then((res) => {
-        const {email,code}=res.data;
-        navigate("/otp_verify",{state:{email:email}});
-        setIsError("")
+        const email=res?.data?.email;
+        if(email){
+          navigate("/otp_verify",{state:{email:email}});
+          setIsError("")
+        }
       });
     } else {
       console.error("Error:", "Password does not match");

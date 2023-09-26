@@ -15,6 +15,7 @@ const OtpVerify = () => {
     const newOTP = [...otpArr];
     newOTP[i] = value;
     setOtpArr(newOTP);
+    // logic to move to the next input 
     if (value === "" && i > 0) {
       inputRefs.current[i - 1].focus();
     } else if (i < otpArr.length - 1 && value !== "") {
@@ -34,7 +35,7 @@ const OtpVerify = () => {
         }
       );
       const res_data = res.data;
-      return res_data?.data?.isVerified;
+      return res_data?.data;
     } catch (err) {
       console.error("Error:", `${err.response.data.message}`);
       setIsError(err.response.data.message);
@@ -46,9 +47,9 @@ const OtpVerify = () => {
     if (!otp_input) {
       setIsError("Please enter complete OTP Code");
     }else if(userEmail){
-      isVerified(otp_input).then((isVerified)=>{
-        if(isVerified){
-          navigate("/complete_profile")
+      isVerified(otp_input).then((user)=>{
+        if(user?.isVerified){
+          navigate("/login")
         }
       })
     }
