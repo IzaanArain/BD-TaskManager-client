@@ -229,6 +229,7 @@ a{
 }
 #user-image{
     border-radius: 100%;
+    border: 3px solid white;
 }
 @media screen and (max-width:768px) {
     nav{
