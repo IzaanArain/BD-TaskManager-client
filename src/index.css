@@ -186,6 +186,7 @@ a{
     font-weight: bolder;
     display: flex;
     align-items: center;
+    padding-left:5px ;
 }
 
 .otp-verify-page{

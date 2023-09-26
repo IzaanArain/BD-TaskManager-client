@@ -44,7 +44,7 @@ const Register = () => {
     if (newUser.password === confirmPassword) {
       postUser(newUser).then((res) => {
         const {email,code}=res.data;
-        navigate("/otp_verify",{state:{otp:code,email:email}});
+        navigate("/otp_verify",{state:{email:email}});
         setIsError("")
       });
     } else {

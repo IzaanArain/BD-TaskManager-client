@@ -58,6 +58,7 @@ const LoginPage = () => {
             <div className="form_heading">
               <p>Login</p>
             </div>
+            {isError && (<div id="error_block"><p>{isError}</p></div>)}
             <div className="form-group">
               <label htmlFor="email">
                 <TfiEmail />
@@ -73,7 +74,6 @@ const LoginPage = () => {
                 required
               />
             </div>
-            {isError && (<div id="error_block"><p>{isError}</p></div>)}
             <div className="form-group">
               <label htmlFor="password">
                 <PasswordIcon />
