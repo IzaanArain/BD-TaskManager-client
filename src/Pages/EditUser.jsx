@@ -11,7 +11,7 @@ import DeleteButton from '../components/DeleteButton';
 const EditUser = () => {
   const {userAuth,setUserAuth}=useAuthContext();
   const token=userAuth.userAuth;
-  const userImage=userAuth?.image;  
+  const userImage=userAuth?.image;
   const [newUser,setNewUser]=useState({
     name:"",
     email:"",
