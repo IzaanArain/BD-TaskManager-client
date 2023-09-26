@@ -23,7 +23,7 @@ const ContextProvider = ({children}) => {
           // console.log("fetching data...",data)
          setUsers(data);
       }catch(err){
-          console.error("Error: ",err.message);
+          console.error("Error: ",err.response.data.message);
       }
   };
   fetchUsers();

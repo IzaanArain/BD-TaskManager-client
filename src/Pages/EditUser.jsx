@@ -6,11 +6,12 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useAuthContext } from '../Hooks/useAuthContext';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import DeleteButton from '../components/DeleteButton';
 const EditUser = () => {
   const {userAuth,setUserAuth}=useAuthContext();
-  const token=userAuth.userAuth;  
+  const token=userAuth.userAuth;
+  const userImage=userAuth?.image;  
   const [newUser,setNewUser]=useState({
     name:"",
     email:"",
@@ -71,6 +72,7 @@ const EditUser = () => {
     <div className="submit_page">
       <div className="submit_form">
         <form onSubmit={editOnSubmit}>
+          <img src={`http://localhost:5000/${userImage}`} alt="user image" width={"200px"} height={"200px"} id='user-image'/>
           <div className="form_heading">
           <p>Edit User</p>
           <p>must enter password for editing profile</p>
