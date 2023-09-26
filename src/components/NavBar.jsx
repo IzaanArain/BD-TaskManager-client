@@ -17,7 +17,7 @@ const NavBar = () => {
           <ul>
           {
             token ? (<li>
-              <Link to="/">Home</Link>
+              <Link to="/">Users</Link>
             </li>) : null
           }
             {

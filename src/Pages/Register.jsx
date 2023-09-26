@@ -43,10 +43,10 @@ const Register = () => {
     e.preventDefault();
     if (newUser.password === confirmPassword) {
       postUser(newUser).then((res) => {
-        const email=res?.data?.email;
-        if(email){
-          navigate("/otp_verify",{state:{email:email}});
-          setIsError("")
+        const email = res?.data?.email;
+        if (email) {
+          navigate("/otp_verify", { state: { email: email } });
+          setIsError("");
         }
       });
     } else {
@@ -68,8 +68,8 @@ const Register = () => {
             <div id="user_logo">
               <UserLogo />
             </div>
-            <hr />
             <div className="form_heading">
+              <hr />
               <p>Register</p>
               <hr />
             </div>

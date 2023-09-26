@@ -34,9 +34,8 @@ const LoginPage = () => {
           },
         }
       );
-      const userData=await res.data;
-      localStorage.setItem("user",JSON.stringify(userData.user));
-      setUserAuth(userData.user)
+      const res_data=await res.data;
+      return res_data
     } catch (err) {
       setIsError(err.response.data.message)
       console.error("Error: ", err.response.data.message);
@@ -45,7 +44,10 @@ const LoginPage = () => {
 
   const loginOnSubmit = (e) => {
     e.preventDefault();
-    login_api(userLogin);
+    login_api(userLogin).then((userData)=>{
+      localStorage.setItem("user",JSON.stringify(userData.user));
+      setUserAuth(userData.user)
+    });
   };
   return (
     <>

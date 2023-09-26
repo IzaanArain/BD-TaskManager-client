@@ -48,7 +48,7 @@ const CompleteProfile = () => {
   const onChangeFileHandler = (e) => {
     setNewUser((prev) => ({ ...prev, image: e.target.files[0] }));
   };
-  
+
   const submitCompleteForm = (e) => {
     e.preventDefault();
     postCompleteProfile(formData);
@@ -61,8 +61,8 @@ const CompleteProfile = () => {
             <div id="user_logo">
               <UserLogo />
             </div>
-            <hr />
             <div className="form_heading">
+              <hr />
               <p>Complete Profile</p>
               <hr />
             </div>
