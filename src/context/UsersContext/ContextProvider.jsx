@@ -26,7 +26,9 @@ const ContextProvider = ({children}) => {
           console.error("Error: ",err.response.data.message);
       }
   };
-  fetchUsers();
+  if(userAuth.role==="admin"){
+    fetchUsers();
+  }
    }
   },[userAuth])
   // console.log(users)

@@ -15,7 +15,8 @@ const LoginPage = () => {
 
   const [isError,setIsError]=useState("");
 
-  const {setUserAuth}=useAuthContext()
+  const {userAuth,setUserAuth}=useAuthContext()
+  const token=userAuth?.userAuth;
   const navigate=useNavigate();
 
   const onChangeHandler = (e) => {
@@ -35,6 +36,7 @@ const LoginPage = () => {
         }
       );
       const res_data=await res.data;
+      console.log("response data",res_data)
       return res_data
     } catch (err) {
       setIsError(err.response.data.message)
@@ -47,6 +49,11 @@ const LoginPage = () => {
     login_api(userLogin).then((userData)=>{
       localStorage.setItem("user",JSON.stringify(userData.user));
       setUserAuth(userData.user)
+      if(token && userAuth.role==="admin"){
+        navigate("/");
+      }else if(token) {
+        navigate("/edit");
+      }
     });
   };
   return (
