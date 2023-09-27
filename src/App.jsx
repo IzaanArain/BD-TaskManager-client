@@ -20,7 +20,7 @@ function App() {
       <BrowserRouter>
         <NavBar />
         <Routes>
-          <Route path="/" element={token ? <Home /> : <Navigate to="/login"/>} />
+          <Route path="/" element={userAuth.role==="admin" ? <Home /> : <Navigate to="/edit"/>} />
           <Route path="/register" element={token ?  <Navigate to="/"/>:  <Register />} />
           <Route path="/login" element={token ? <Navigate to="/"/>:<LoginPage /> } />
           <Route path="/edit" element={token ? <EditUser /> : <Navigate to="/login"/>} />
