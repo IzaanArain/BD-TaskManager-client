@@ -48,6 +48,9 @@ const Register = () => {
           navigate("/otp_verify", { state: { email: email } });
           setIsError("");
         }
+      }).catch((err)=>{
+        setIsError(err.response.data.message)
+        console.error("Error: ", err.response.data.message);
       });
     } else {
       console.error("Error:", "Password does not match");

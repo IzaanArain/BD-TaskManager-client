@@ -19,11 +19,11 @@ const AuthContextProvider = ({ children }) => {
     const token = auth?.userAuth;
     // console.log("AuthContext token:",token)
   useEffect(() => {
-    if (token) {
-      setUserAuth(auth);
-    }
+      if(token){
+        setUserAuth(auth);
+      }
   }, []);
-  console.log("AuthContext:", userAuth);
+  // console.log("AuthContext:", userAuth);
   return (
     <>
       <authContext.Provider value={{ userAuth, setUserAuth }}>

@@ -12,14 +12,15 @@ import { useAuthContext } from "./Hooks/useAuthContext";
 
 function App() {
   const { userAuth } = useAuthContext();
-  const token = userAuth.userAuth;
+  const token = userAuth?.userAuth;
   // console.log("token: ", token);
-  console.log("user in App.js: ", userAuth);
+  // console.log("user in App.js: ", userAuth);
   return (
     <>
       <BrowserRouter>
         <NavBar />
         <Routes>
+        {console.log(token)}
           <Route
             path="/"
             element={

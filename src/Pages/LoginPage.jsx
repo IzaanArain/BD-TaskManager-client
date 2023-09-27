@@ -36,7 +36,7 @@ const LoginPage = () => {
         }
       );
       const res_data=await res.data;
-      console.log("response data",res_data)
+      // console.log("response data",res_data)
       return res_data
     } catch (err) {
       setIsError(err.response.data.message)
@@ -54,6 +54,9 @@ const LoginPage = () => {
       }else if(token) {
         navigate("/edit");
       }
+    }).catch((err)=>{
+      setIsError(err.response.data.message)
+      console.error("Error: ", err.response.data.message);
     });
   };
   return (
