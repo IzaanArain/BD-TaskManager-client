@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const DeleteButton = () => {
   const { userAuth, setUserAuth } = useAuthContext();
-  const token = userAuth.userAuth;
+  const token = userAuth?.userAuth;
   const navigate=useNavigate()
   const delete_api = async () => {
     if(token){

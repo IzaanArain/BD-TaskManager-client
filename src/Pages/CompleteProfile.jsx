@@ -21,7 +21,6 @@ const CompleteProfile = () => {
   formData.append("name", newUser.name);
   formData.append("phone", newUser.phone);
   formData.append("image", newUser.image);
-
   const postCompleteProfile = async (data) => {
     try {
       const res = await axios.post(

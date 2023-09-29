@@ -7,9 +7,7 @@ import { useAuthContext } from '../Hooks/useAuthContext';
 
 const Home = () => {
 const users=useUserContext();
-// console.log(users)
 const {userAuth}=useAuthContext()
-const token=userAuth.userAuth
   return (
     <>
    {users ? ( <div className="userList">

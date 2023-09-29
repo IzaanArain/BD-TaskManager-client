@@ -5,7 +5,7 @@ import LogoutButton from "./LogoutButton";
 import {FaEnvira as LogoIcon} from "react-icons/fa"
 const NavBar = () => {
   const {userAuth}=useAuthContext()
-  const token=userAuth.userAuth;
+  const token=userAuth?.userAuth;
   // console.log(user)
   return (
     <>
@@ -16,7 +16,7 @@ const NavBar = () => {
         </div>
           <ul>
           {
-            userAuth.role==="admin" ? (<li>
+            userAuth?.role==="admin" ? (<li>
               <Link to="/">Users</Link>
             </li>) : null
           }

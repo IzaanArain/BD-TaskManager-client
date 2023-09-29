@@ -13,18 +13,16 @@ import { useAuthContext } from "./Hooks/useAuthContext";
 function App() {
   const { userAuth } = useAuthContext();
   const token = userAuth?.userAuth;
-  // console.log("token: ", token);
-  // console.log("user in App.js: ", userAuth);
+  console.log("App.js:",userAuth)
   return (
     <>
       <BrowserRouter>
         <NavBar />
         <Routes>
-        {console.log(token)}
           <Route
             path="/"
             element={
-              userAuth.role === "admin" ? <Home /> : <Navigate to="/edit" />
+              userAuth?.role === "admin" ? <Home /> : <Navigate to="/edit" />
             }
           />
           <Route
@@ -45,7 +43,7 @@ function App() {
           />
           <Route
             path="/complete_profile"
-            element={token ? <CompleteProfile /> : <Navigate to="/login" />}
+            element={ token && userAuth.isVerified ? <CompleteProfile /> : <Navigate to="/login"/>}
           />
           <Route
             path="/role_register"

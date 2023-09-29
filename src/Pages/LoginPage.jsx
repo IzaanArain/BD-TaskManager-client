@@ -47,7 +47,7 @@ const LoginPage = () => {
   const loginOnSubmit = (e) => {
     e.preventDefault();
     login_api(userLogin).then((userData)=>{
-      localStorage.setItem("user",JSON.stringify(userData.user));
+      //localStorage.setItem("user",JSON.stringify(userData.user))
       setUserAuth(userData.user)
       if(token && userAuth.role==="admin"){
         navigate("/");

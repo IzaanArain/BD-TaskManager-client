@@ -11,7 +11,7 @@ import DeleteButton from "../components/DeleteButton";
 import userPic from "../assets/user-image.jpg";
 const EditUser = () => {
   const { userAuth, setUserAuth } = useAuthContext();
-  const token = userAuth.userAuth;
+  const token = userAuth?.userAuth;
   const userImage = userAuth?.image;
   const [newUser, setNewUser] = useState({
     name: "",
