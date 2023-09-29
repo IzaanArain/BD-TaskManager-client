@@ -2,6 +2,7 @@ import React from "react";
 import { authContext } from "./AuthContext";
 import { useState } from "react";
 import { useEffect } from "react";
+import { json } from "react-router-dom";
 
 const AuthContextProvider = ({ children }) => {
   const [userAuth, setUserAuth] = useState({});
