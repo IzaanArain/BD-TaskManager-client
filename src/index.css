@@ -92,11 +92,30 @@ a{
     border-radius: 10px;
     border: none;
 }
+
 #submit_btn:hover{
     background-color: green;
     color: white;
 }
 #submit_btn:active{
+    background-color:lawngreen;
+    color: black;
+}
+#verify_btn{
+    padding: 10px;
+    width: 100%;
+    font-size: 25px;
+    font-weight: bolder;
+    font-family: monospace;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 20px;
+}
+#verify_btn:hover{
+    background-color: green;
+    color: white;
+}
+#verify_btn:active{
     background-color:lawngreen;
     color: black;
 }

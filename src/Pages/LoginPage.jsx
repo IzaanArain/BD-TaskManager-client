@@ -47,11 +47,12 @@ const LoginPage = () => {
   const loginOnSubmit = (e) => {
     e.preventDefault();
     login_api(userLogin).then((userData)=>{
-      //localStorage.setItem("user",JSON.stringify(userData.user))
       setUserAuth(userData.user)
       if(token && userAuth.role==="admin"){
         navigate("/");
-      }else if(token) {
+      }else if(token && userAuth.isComplete===false) {
+        navigate("/complete_profile");
+      }else if(token && userAuth.isComplete===true) {
         navigate("/edit");
       }
     }).catch((err)=>{
@@ -59,6 +60,11 @@ const LoginPage = () => {
       console.error("Error: ", err.response.data.message);
     });
   };
+
+  const getVerified=(e)=>{
+    e.preventDefault()
+    navigate("/otp_verify",{ state: { email: userLogin.email } })
+  }
   return (
     <>
       <div className="submit_page">
@@ -100,6 +106,7 @@ const LoginPage = () => {
                 required
               />
             </div>
+            {isError==="user is not verified" ? (<button id="verify_btn" onClick={getVerified}>GET VERIFIED</button>) : null}
             <input type="submit" id="submit_btn" value="SUBMIT" />
           </form>
         </div>

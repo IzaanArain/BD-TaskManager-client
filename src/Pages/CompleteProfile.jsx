@@ -4,6 +4,7 @@ import { FaRegUserCircle as UserLogo } from "react-icons/fa";
 import { BsFillFileEarmarkImageFill as PictureLogo } from "react-icons/bs";
 import { useAuthContext } from "../Hooks/useAuthContext";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 const CompleteProfile = () => {
   const [newUser, setNewUser] = useState({
     email: "",
@@ -51,6 +52,9 @@ const CompleteProfile = () => {
   const submitCompleteForm = (e) => {
     e.preventDefault();
     postCompleteProfile(formData);
+    if(user.isComplete===true){
+      Navigate("/edit")
+    }
   };
   return (
     <>
