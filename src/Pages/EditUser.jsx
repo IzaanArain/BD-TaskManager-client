@@ -20,7 +20,7 @@ const EditUser = () => {
     image: "",
   });
   const [isError, setIsError] = useState("");
-  
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -97,7 +97,6 @@ const EditUser = () => {
             />
             <div className="form_heading">
               <p>Edit User</p>
-              <p>must enter password for editing profile</p>
             </div>
             {isError && (
               <div id="error_block">
