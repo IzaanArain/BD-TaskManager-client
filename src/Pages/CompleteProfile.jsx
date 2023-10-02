@@ -4,7 +4,7 @@ import { FaRegUserCircle as UserLogo } from "react-icons/fa";
 import { BsFillFileEarmarkImageFill as PictureLogo } from "react-icons/bs";
 import { useAuthContext } from "../Hooks/useAuthContext";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const CompleteProfile = () => {
   const [newUser, setNewUser] = useState({
     email: "",
@@ -13,10 +13,10 @@ const CompleteProfile = () => {
     image: "",
   });
   const [isError, setIsError] = useState("");
-  const user = useAuthContext();
-  const userEmail = user?.userAuth?.email ? user?.userAuth?.email : "";
-  const token = user?.userAuth?.userAuth ? user?.userAuth?.userAuth : "";
-
+  const {userAuth,setUserAuth} = useAuthContext();
+  const userEmail = userAuth?.email ? userAuth?.email : "";
+  const token = userAuth?.userAuth ? userAuth?.userAuth : "";
+  const navigate=useNavigate()
   const formData = new FormData();
   formData.append("email", userEmail);
   formData.append("name", newUser.name);
@@ -34,6 +34,8 @@ const CompleteProfile = () => {
           },
         }
       );
+      const res_data=await res.data
+      return res_data;
     } catch (err) {
       console.error("Error:", `${err.response.data.message}`);
       setIsError(err.response.data.message);
@@ -51,10 +53,10 @@ const CompleteProfile = () => {
 
   const submitCompleteForm = (e) => {
     e.preventDefault();
-    postCompleteProfile(formData);
-    if(user.isComplete===true){
-      Navigate("/edit")
-    }
+    postCompleteProfile(formData).then((userData)=>{
+      setUserAuth(userData.user)
+      navigate("/edit")
+    })
   };
   return (
     <>

@@ -21,32 +21,52 @@ function App() {
           <Route
             path="/"
             element={
-              userAuth?.role === "admin" ? <Home /> : <Navigate to="/edit" />
+              token && userAuth?.role === "admin" ? (
+                <Home />
+              ) : (
+                <Navigate to="/edit" />
+              )
             }
           />
           <Route
             path="/register"
-            element={token ? <Navigate to="/" /> : <Register />}
+            element={token ? <Navigate to="/edit" /> : <Register />}
           />
           <Route
             path="/login"
-            element={token ? <Navigate to="/" /> : <LoginPage />}
+            element={
+              token && userAuth.role === "user" ? (
+                <Navigate to="/edit" />
+              ) : token && userAuth.role === "admin" ? (
+                <Navigate to="/" />
+              ) : (
+                <LoginPage />
+              )
+            }
           />
           <Route
             path="/edit"
-            element={token ? <EditUser /> : <Navigate to="/login" />}
+            element={
+              token && userAuth.isComplete === true ? (
+                <EditUser />
+              ) : token && userAuth.isComplete === false ? (
+                <Navigate to="/complete_profile" />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/otp_verify"
-            element={token ? <Navigate to="/" /> : <OtpVerify />}
+            element={token ? <Navigate to="/edit" /> : <OtpVerify />}
           />
           <Route
             path="/complete_profile"
-            element={ token && userAuth.isVerified ? <CompleteProfile /> : <Navigate to="/login"/>}
+            element={token ? <CompleteProfile /> : <Navigate to="/login" />}
           />
           <Route
             path="/role_register"
-            element={token ? <Navigate to="/" /> : <RoleRegister />}
+            element={token ? <Navigate to="/edit" /> : <RoleRegister />}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>

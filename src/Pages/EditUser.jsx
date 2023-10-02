@@ -2,6 +2,7 @@ import React from "react";
 import { FaUser, FaPhone } from "react-icons/fa";
 import { TfiEmail } from "react-icons/tfi";
 import { RiLockPasswordFill as PasswordIcon } from "react-icons/ri";
+import { BsFillFileEarmarkImageFill as PictureLogo } from "react-icons/bs";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
@@ -18,9 +19,8 @@ const EditUser = () => {
     phone: "",
     image: "",
   });
-
-  const navigate = useNavigate();
-
+  const [isError, setIsError] = useState("");
+  
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -36,7 +36,8 @@ const EditUser = () => {
           phone: userData.phone,
         });
       } catch (err) {
-        console.error("Error", err.message);
+        console.error("Error", err.response.data.message);
+        setIsError(err.response.data.message);
       }
     };
     getUser();
@@ -46,34 +47,47 @@ const EditUser = () => {
     const { value, name } = e.target;
     setNewUser((prev) => ({ ...prev, [name]: value }));
   };
-  // console.log(newUser);
+  const onChangeFileHandler = (e) => {
+    setNewUser((prev) => ({ ...prev, image: e.target.files[0] }));
+  };
 
   const edit_api = async (data) => {
-    const res = await axios.put(
-      "http://localhost:5000/api/v1/users/update/",
-      { ...data },
-      {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const userData = await res.data;
-    const user_d = userData.user;
-    // console.log(userData)
-    setUserAuth(user_d);
-    return userData;
+    try {
+      const res = await axios.put(
+        "http://localhost:5000/api/v1/users/update",
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const userData = await res.data;
+      const user_d = userData.user;
+      return user_d;
+    } catch (err) {
+      console.error("Error", err.response.data.message);
+      setIsError(err.response.data.message);
+    }
   };
+
+  const formData = new FormData();
+  formData.append("name", newUser.name);
+  formData.append("phone", newUser.phone);
+  formData.append("image", newUser.image);
+
   const editOnSubmit = (e) => {
     e.preventDefault();
-    edit_api(newUser);
-    navigate("/");
+    edit_api(formData).then((userData) => {
+      setUserAuth(userData);
+    });
   };
   return (
     <>
       <div className="submit_page">
         <div className="submit_form">
-          <form onSubmit={editOnSubmit}>
+          <form onSubmit={editOnSubmit} encType="multipart/form-data">
             <img
               src={userImage ? `http://localhost:5000/${userImage}` : userPic}
               alt="user image"
@@ -85,6 +99,11 @@ const EditUser = () => {
               <p>Edit User</p>
               <p>must enter password for editing profile</p>
             </div>
+            {isError && (
+              <div id="error_block">
+                <p>{isError}</p>
+              </div>
+            )}
             <div className="form-group">
               <label htmlFor="name">
                 <FaUser />
@@ -96,34 +115,6 @@ const EditUser = () => {
                 value={newUser.name}
                 onChange={OnChangeHandler}
                 placeholder="user name"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">
-                <TfiEmail />
-              </label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                value={newUser.email}
-                onChange={OnChangeHandler}
-                placeholder="user email"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">
-                <PasswordIcon />
-              </label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="user password"
-                value={newUser.password}
-                onChange={OnChangeHandler}
                 required
               />
             </div>
@@ -142,7 +133,19 @@ const EditUser = () => {
                 required
               />
             </div>
-
+            <div className="form-group">
+              <label htmlFor="image">
+                <PictureLogo />
+              </label>
+              <input
+                type="file"
+                filename="image"
+                name="image"
+                id="image"
+                onChange={onChangeFileHandler}
+                accept=".png, .jpg, .jpeg, .gif"
+              />
+            </div>
             <input type="submit" id="submit_btn" value="SUBMIT" />
             <DeleteButton />
           </form>

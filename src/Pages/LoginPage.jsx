@@ -48,13 +48,6 @@ const LoginPage = () => {
     e.preventDefault();
     login_api(userLogin).then((userData)=>{
       setUserAuth(userData.user)
-      if(token && userAuth.role==="admin"){
-        navigate("/");
-      }else if(token && userAuth.isComplete===false) {
-        navigate("/complete_profile");
-      }else if(token && userAuth.isComplete===true) {
-        navigate("/edit");
-      }
     }).catch((err)=>{
       setIsError(err.response.data.message)
       console.error("Error: ", err.response.data.message);
