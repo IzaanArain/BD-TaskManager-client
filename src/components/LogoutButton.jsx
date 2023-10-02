@@ -6,8 +6,6 @@ const LogoutButton = () => {
   const navigate = useNavigate();
 
  const Logout=()=>{
-//  localStorage.setItem("user", JSON.stringify(null));
-//  const logoutState=localStorage.getItem("user")
   setUserAuth(null)
   navigate("/login");
  }
