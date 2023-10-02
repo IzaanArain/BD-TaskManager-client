@@ -4,10 +4,13 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 const AuthContextProvider = ({ children }) => {
+ const initialState=()=>{
   const userLocalStorage=JSON.parse(localStorage.getItem("user"))
-  const [userAuth, setUserAuth] = useState(userLocalStorage);
+  return userLocalStorage ? userLocalStorage : null
+ };
+  const [userAuth, setUserAuth] = useState(initialState);
 
-  // Updating the state during the Mounting phase
+  //Updating the state during the Mounting phase
   // useEffect(() => {
   //   const data=JSON.parse(localStorage.getItem("user"));
   //   if(data!==null){
