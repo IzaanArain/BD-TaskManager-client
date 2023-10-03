@@ -10,6 +10,7 @@ import CreateTasks from "../Pages/CreateTasks";
 import AllTasks from "../Pages/AllTasks";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import Footer from "./Footer";
 import { useAuthContext } from "../Hooks/useAuthContext";
 
 const Layout = () => {
@@ -37,6 +38,7 @@ const Layout = () => {
               <Route path="*" element={<Navigate to="/login"/>} />
             </Routes>
           )}       
+          {/* <Footer/> */}
       </BrowserRouter>
     </>
   );
