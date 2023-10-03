@@ -4,7 +4,9 @@ const AllTasks = () => {
     const tasks=useTaskContext();
   return (
    <>
-   
+   <table>
+    
+   </table>
    </>
   )
 }

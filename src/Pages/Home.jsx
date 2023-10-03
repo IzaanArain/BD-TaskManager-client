@@ -8,7 +8,6 @@ import { useAuthContext } from '../Hooks/useAuthContext';
 const Home = () => {
 const users=useUserContext();
 const {userAuth}=useAuthContext()
-console.log(users)
   return (
     <>
    {users ? ( <div className="userList">
