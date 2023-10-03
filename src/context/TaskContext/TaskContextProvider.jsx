@@ -22,7 +22,7 @@ const TaskContextProvider = ({children}) => {
                 console.error("Error: ",err.response.data.message);
             }
         }
-        if(userAuth.role==="admin"){
+        if(userAuth?.role==="admin"){
         fetchAllTasks()
         }
     },[])
