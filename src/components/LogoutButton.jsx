@@ -9,9 +9,6 @@ const LogoutButton = () => {
   setUserAuth(null)
   navigate("/login");
  }
-
-
-
   return (
     <>
       <button onClick={Logout} id="logout_btn">Logout</button>
