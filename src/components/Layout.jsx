@@ -17,23 +17,23 @@ const Layout = () => {
     <>
       <BrowserRouter>
         <NavBar />
-        <Routes>
+        
           {token ? (
-            <>
+            <Routes>
               <Route path="/complete_profile" element={<CompleteProfile />} />
               <Route path="/users" element={userAuth.role==="admin" ? <Home /> : <Navigate to="/edit"/>} />
               <Route path="/edit" element={<EditUser />} />
-            </>
+              <Route path="*" element={<Navigate to="/edit"/>} />
+            </Routes>
           ) : (
-            <>
+            <Routes>
               <Route path="/register" element={<Register />} />
               <Route path="/role_register" element={<RoleRegister />} />
               <Route path="/otp_verify" element={<OtpVerify />} />
               <Route path="/login" element={<LoginPage />} />
-            </>
-          )}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+              <Route path="*" element={<Navigate to="/login"/>} />
+            </Routes>
+          )}       
       </BrowserRouter>
     </>
   );
