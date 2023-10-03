@@ -6,6 +6,8 @@ import NotFound from "../Pages/NotFound";
 import OtpVerify from "../Pages/OtpVerify";
 import CompleteProfile from "../Pages/CompleteProfile";
 import RoleRegister from "../Pages/RoleRegister";
+import CreateTasks from "../Pages/CreateTasks";
+import AllTasks from "../Pages/AllTasks";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { useAuthContext } from "../Hooks/useAuthContext";
@@ -22,6 +24,8 @@ const Layout = () => {
               <Route path="/complete_profile" element={<CompleteProfile />} />
               <Route path="/users" element={userAuth.role==="admin" ? <Home /> : <Navigate to="/edit"/>} />
               <Route path="/edit" element={<EditUser />} />
+              <Route path="/create_task" element={userAuth.role==="admin" ? <CreateTasks/> : <Navigate to="/edit"/>}/>
+              <Route path="/all_tasks" element={userAuth.role==="admin" ? <AllTasks/>: <Navigate to="/edit"/>}/>
               <Route path="*" element={<Navigate to="/edit"/>} />
             </Routes>
           ) : (

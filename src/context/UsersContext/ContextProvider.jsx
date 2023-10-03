@@ -19,8 +19,6 @@ const ContextProvider = ({children}) => {
             }
           })
           const data=await res.data;
-          // console.log(data)
-          // console.log("fetching data...",data)
          setUsers(data);
       }catch(err){
           console.error("Error: ",err.response.data.message);
@@ -30,7 +28,7 @@ const ContextProvider = ({children}) => {
     fetchUsers();
   }
    }
-  },[userAuth])
+  },[])
   // console.log(users)
   return (
     <>

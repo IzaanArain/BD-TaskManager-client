@@ -49,7 +49,7 @@ const OtpVerify = () => {
     }else if(userEmail){
       isVerified(otp_input).then((user)=>{
         if(user?.isVerified){
-          navigate("/login")
+          navigate("/complete_profile")
         }
       })
     }
