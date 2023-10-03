@@ -1,10 +1,10 @@
 import React from "react";
 import { TfiEmail } from "react-icons/tfi";
 import { RiLockPasswordFill as PasswordIcon } from "react-icons/ri";
-import {SlLogin as LoginIcon} from "react-icons/sl"
+import { SlLogin as LoginIcon } from "react-icons/sl";
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../Hooks/useAuthContext";
 
 const LoginPage = () => {
@@ -13,11 +13,11 @@ const LoginPage = () => {
     password: "",
   });
 
-  const [isError,setIsError]=useState("");
+  const [isError, setIsError] = useState("");
 
-  const {userAuth,setUserAuth}=useAuthContext()
-  const token=userAuth?.userAuth;
-  const navigate=useNavigate();
+  const { userAuth, setUserAuth } = useAuthContext();
+  const token = userAuth?.userAuth;
+  const navigate = useNavigate();
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -35,41 +35,47 @@ const LoginPage = () => {
           },
         }
       );
-      const res_data=await res.data;
-      // console.log("response data",res_data)
-      return res_data
+      const res_data = await res.data;
+      return res_data;
     } catch (err) {
-      setIsError(err.response.data.message)
+      setIsError(err.response.data.message);
       console.error("Error: ", err.response.data.message);
     }
   };
 
   const loginOnSubmit = (e) => {
     e.preventDefault();
-    login_api(userLogin).then((userData)=>{
-      setUserAuth(userData.user)
-    }).catch((err)=>{
-      setIsError(err.response.data.message)
-      console.error("Error: ", err.response.data.message);
-    });
+    login_api(userLogin)
+      .then((userData) => {
+        setUserAuth(userData.user);
+        navigate("/edit");
+      })
+      .catch((err) => {
+        setIsError(err.response.data.message);
+        console.error("Error: ", err.response.data.message);
+      })
   };
 
-  const getVerified=(e)=>{
-    e.preventDefault()
-    navigate("/otp_verify",{ state: { email: userLogin.email } })
-  }
+  const getVerified = (e) => {
+    e.preventDefault();
+    navigate("/otp_verify", { state: { email: userLogin.email } });
+  };
   return (
     <>
       <div className="submit_page">
         <div className="submit_form">
           <form onSubmit={loginOnSubmit}>
-          <div id="user_logo">
-             <LoginIcon/>
+            <div id="user_logo">
+              <LoginIcon />
             </div>
             <div className="form_heading">
               <p>Login</p>
             </div>
-            {isError && (<div id="error_block"><p>{isError}</p></div>)}
+            {isError && (
+              <div id="error_block">
+                <p>{isError}</p>
+              </div>
+            )}
             <div className="form-group">
               <label htmlFor="email">
                 <TfiEmail />
@@ -99,7 +105,11 @@ const LoginPage = () => {
                 required
               />
             </div>
-            {isError==="user is not verified" ? (<button id="verify_btn" onClick={getVerified}>GET VERIFIED</button>) : null}
+            {isError === "user is not verified" ? (
+              <button id="verify_btn" onClick={getVerified}>
+                GET VERIFIED
+              </button>
+            ) : null}
             <input type="submit" id="submit_btn" value="SUBMIT" />
           </form>
         </div>

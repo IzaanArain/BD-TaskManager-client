@@ -17,7 +17,7 @@ const NavBar = () => {
           <ul>
           {
             userAuth?.role==="admin" ? (<li>
-              <Link to="/">Users</Link>
+              <Link to="/users">Users</Link>
             </li>) : null
           }
             {
