@@ -16,8 +16,7 @@ const Layout = () => {
   return (
     <>
       <BrowserRouter>
-        <NavBar />
-        
+        <NavBar />   
           {token ? (
             <Routes>
               <Route path="/complete_profile" element={<CompleteProfile />} />
