@@ -3,7 +3,7 @@ import { taskContext } from './TaskContext'
 import { useAuthContext } from '../../Hooks/useAuthContext'
 import axios from 'axios';
 const TaskContextProvider = ({children}) => {
-    const [task,setTasks]=useState(null);
+    const [task,setTasks]=useState([]);
     const {userAuth}=useAuthContext();
     const token=userAuth?.userAuth;
 

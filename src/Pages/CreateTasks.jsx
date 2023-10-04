@@ -15,10 +15,10 @@ const CreateTasks = () => {
     completion_date: "",
   });
   const [amount, setAmount] = useState(0);
-  const [isError,setIsError]=useState("")
+  const [isError, setIsError] = useState("");
   const { userAuth } = useAuthContext();
   const token = userAuth?.userAuth;
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -42,24 +42,31 @@ const CreateTasks = () => {
           },
         }
       );
-      const res_data=await res.data;
+      const res_data = await res.data;
     } catch (err) {
-        console.error("Error",err.response.data.message)
-        setIsError(err.response.data.message)
+      //console.error("Error", err.response.data.message);
+      //setIsError(err.response.data.message);
+      throw err.response.data.message;
     }
   };
 
-  const onSubmitTask=(e)=>{
+  const onSubmitTask = (e) => {
     e.preventDefault();
     createTask(formData)
-    navigate("/users")
-    setNewTask({
-        title: "",
-        description: "",
-        completion_date: "",
-    })
-    setAmount(0)
-  }
+      .then(() => {
+        navigate("/all_tasks");
+        setNewTask({
+          title: "",
+          description: "",
+          completion_date: "",
+        });
+        setAmount(0);
+      })
+      .catch((err) => {
+        console.error("Error", err);
+        setIsError(err);
+      });
+  };
   return (
     <>
       <div className="submit_page">
@@ -74,10 +81,10 @@ const CreateTasks = () => {
               <hr />
             </div>
             {isError && (
-                 <div id="error_block">
-                 <p>{isError}</p>
-               </div>
-            ) }
+              <div id="error_block">
+                <p>{isError}</p>
+              </div>
+            )}
             <div className="form-group">
               <label htmlFor="title">Title:</label>
               <input
