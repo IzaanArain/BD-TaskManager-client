@@ -28,8 +28,7 @@ const ContextProvider = ({children}) => {
     fetchUsers();
   }
    }
-  },[])
-  // console.log(users)
+  },[]);
   return (
     <>
     <userContext.Provider value={users}>

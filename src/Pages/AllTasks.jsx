@@ -1,5 +1,6 @@
 import React from "react";
 import { useTaskContext } from "../Hooks/useTaskContext";
+import UserAssignModal from "../components/UserAssignModal";
 const AllTasks = () => {
   const tasks = useTaskContext();
   return (
@@ -25,9 +26,9 @@ const AllTasks = () => {
               </tr>
             </thead>
             <tbody>
-              {tasks.map((task) => {
+              {tasks.map((task,index) => {
                 return (
-                  <tr key={task._id}>
+                  <tr key={index}>
                     <td>{task.title}</td>
                     <td>{task.description}</td>
                     <td>{task.amount}</td>
@@ -45,7 +46,7 @@ const AllTasks = () => {
                     <td>
                       <div className="task-actions">
                         {task.status === "todo" ? (
-                          <button>assign</button>
+                          <UserAssignModal taskId={task._id} />
                         ) : null}
                       </div>
                     </td>

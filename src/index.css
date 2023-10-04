@@ -296,20 +296,19 @@ a {
     overflow: scroll;
     border: 3px solid #146e73;
 }
-.task-table-con table {
+table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
 
-.task-table-con td,
-th {
+ td,th {
   border: 1px solid #146e73;
   text-align: left;
   padding: 8px;
 }
 
-.task-table-con tr:nth-child(even) {
+ tr:nth-child(even) {
   background-color: #1fadb5;
 }
 
@@ -318,6 +317,16 @@ th {
   text-align: center;
   font-size: 30px;
   color: white;
+}
+#task-action-btn{
+    padding: 5px;
+    font-size: 20px;
+}
+#close-modal-btn{
+    background: none;
+    border: none;
+    font-size: 50px;
+    float: right;
 }
 @media screen and (max-width: 1550px) {
   .submit_page {
