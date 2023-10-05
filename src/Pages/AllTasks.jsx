@@ -50,7 +50,7 @@ const AllTasks = () => {
               <tr>
                 <th>title</th>
                 <th>description</th>
-                <th>amount</th>
+                <th>Task amount</th>
                 <th>Creation task</th>
                 <th>Task completion date</th>
                 <th>Status</th>
@@ -60,6 +60,7 @@ const AllTasks = () => {
                 <th>Accepted date</th>
                 <th>Freelancer completion date</th>
                 <th>Task Approved</th>
+                <th>Late submission</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -68,7 +69,7 @@ const AllTasks = () => {
                 const taskId=task?._id
                 const userId=task?.result?._id
                 return (
-                  <tr key={index}>
+                  <tr key={index} id={task.lateSubmission ? "late" : null}>
                     <td>{task.title}</td>
                     <td>{task.description}</td>
                     <td>{task.amount}</td>
@@ -83,13 +84,14 @@ const AllTasks = () => {
                     <td>{task.accepted_date}</td>
                     <td>{task.freeLancer_completion}</td>
                     <td>{task.isCompleted ? "Yes" : "No"}</td>
+                    <td>{task.lateSubmission ? "late" : "No"}</td>
                     <td>
                       <div className="task-actions">
                         {task.status === "todo" ? (
                           <UserAssignModal taskId={task._id}  updateTasks={setTasks}/>
                         ) : null}
                         {task.status === "completedByFreelancer" ? (
-                          <button onClick={(e)=>onSubmitApprove(e,taskId,userId)}>Approve</button>
+                          <button onClick={(e)=>onSubmitApprove(e,taskId,userId)} id="task-action-btn">Approve</button>
                         ) : null}
               
                       </div>

@@ -44,13 +44,14 @@ const UserApprovedTasks = () => {
                 <th>Accepted date</th>
                 <th>Freelancer completion date</th>
                 <th>Task Approved</th>
+                <th>late Submission</th>
               </tr>
             </thead>
             <tbody>
               {approvedTasks.map((task ,i) => {
                 const taskId=task._id
                 return (
-                  <tr key={i}>
+                  <tr key={i} id={task.lateSubmission ? "late" : null}>
                     <td>{task.title}</td>
                     <td>{task.description}</td>
                     <td>{task.amount}</td>
@@ -59,6 +60,7 @@ const UserApprovedTasks = () => {
                     <td>{task.accepted_date}</td>
                     <td>{task?.freeLancer_completion}</td>
                     <td>{task?.isCompleted ? "Yes" : "No"}</td>
+                    <td>{task?.lateSubmission ? "late" : "No"}</td>
                   </tr>
                 );
               })}

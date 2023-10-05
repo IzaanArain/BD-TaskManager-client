@@ -21,7 +21,7 @@ const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(userAuth));
   }, [userAuth]);
-
+  
   return (
     <>
       <authContext.Provider value={{ userAuth, setUserAuth }}>
