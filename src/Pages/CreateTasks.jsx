@@ -7,6 +7,7 @@ import {
 import { BsFillCalendarDateFill as CalenderLogo } from "react-icons/bs";
 import { useAuthContext } from "../Hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import { useTaskContext } from "../Hooks/useTaskContext";
 
 const CreateTasks = () => {
   const [newTask, setNewTask] = useState({
@@ -18,6 +19,7 @@ const CreateTasks = () => {
   const [isError, setIsError] = useState("");
   const { userAuth } = useAuthContext();
   const token = userAuth?.userAuth;
+  const {tasks,setTasks}=useTaskContext()
   const navigate = useNavigate();
 
   const onChangeHandler = (e) => {
@@ -43,9 +45,9 @@ const CreateTasks = () => {
         }
       );
       const res_data = await res.data;
+      const task=await res_data?.task;
+      return task;
     } catch (err) {
-      //console.error("Error", err.response.data.message);
-      //setIsError(err.response.data.message);
       throw err.response.data.message;
     }
   };
@@ -53,7 +55,8 @@ const CreateTasks = () => {
   const onSubmitTask = (e) => {
     e.preventDefault();
     createTask(formData)
-      .then(() => {
+      .then((task) => {
+        setTasks((prev)=>([...prev,task]));
         navigate("/all_tasks");
         setNewTask({
           title: "",

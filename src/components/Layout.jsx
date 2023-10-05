@@ -23,8 +23,8 @@ const Layout = () => {
           {token ? (
             <Routes>
               <Route path="/complete_profile" element={<CompleteProfile />} />
-              <Route path="/users" element={userAuth.role==="admin" ? <Home /> : <Navigate to="/edit"/>} />
-              <Route path="/edit" element={<EditUser />} />
+              <Route path="/users" element={userAuth?.role==="admin" ? <Home /> : <Navigate to="/edit"/>} />
+              <Route path="/edit" element={userAuth?.isComplete ? <EditUser /> : <Navigate to="/complete_profile"/>} />
               <Route path="/create_task" element={userAuth.role==="admin" ? <CreateTasks/> : <Navigate to="/edit"/>}/>
               <Route path="/all_tasks" element={userAuth.role==="admin" ? <AllTasks/>: <Navigate to="/edit"/>}/>
               <Route path="*" element={<Navigate to="/edit"/>} />

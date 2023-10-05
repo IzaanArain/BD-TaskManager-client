@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTaskContext } from "../Hooks/useTaskContext";
 import UserAssignModal from "../components/UserAssignModal";
 const AllTasks = () => {
-  const tasks = useTaskContext();
+  const {tasks,setTasks,fetchAllTasks} = useTaskContext();
+
+  // useEffect(()=>{
+  //   fetchAllTasks()
+  // },[])
+
   return (
     <>
       <div className="tasks-page">
@@ -26,7 +31,7 @@ const AllTasks = () => {
               </tr>
             </thead>
             <tbody>
-              {tasks.map((task,index) => {
+              {tasks?.map((task,index) => {
                 return (
                   <tr key={index}>
                     <td>{task.title}</td>
@@ -36,7 +41,7 @@ const AllTasks = () => {
                     <td>{task.completion_date}</td>
                     <td>{task.status}</td>
                     <td>
-                      {task?.result?.name ? task?.result?.name : "not assigned"}
+                      {task?.result ? task?.result?.email : "not assigned"}
                     </td>
                     <td>{task.assign_date}</td>
                     <td>{task.task_accepted ? "Yes" : "No"}</td>
@@ -46,7 +51,7 @@ const AllTasks = () => {
                     <td>
                       <div className="task-actions">
                         {task.status === "todo" ? (
-                          <UserAssignModal taskId={task._id} />
+                          <UserAssignModal taskId={task._id}  updateTasks={setTasks}/>
                         ) : null}
                       </div>
                     </td>

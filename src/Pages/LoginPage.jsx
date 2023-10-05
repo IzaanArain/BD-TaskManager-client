@@ -38,8 +38,7 @@ const LoginPage = () => {
       const res_data = await res.data;
       return res_data;
     } catch (err) {
-      setIsError(err.response.data.message);
-      console.error("Error: ", err.response.data.message);
+      throw err.response.data.message;
     }
   };
 
@@ -48,11 +47,10 @@ const LoginPage = () => {
     login_api(userLogin)
       .then((userData) => {
         setUserAuth(userData.user);
-        navigate("/edit");
       })
       .catch((err) => {
-        setIsError(err.response.data.message);
-        console.error("Error: ", err.response.data.message);
+        setIsError(err);
+        console.error("Error: ", err);
       })
   };
 

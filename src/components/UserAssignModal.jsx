@@ -1,16 +1,20 @@
 import Modal from "react-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiFillCloseCircle as CloseIcon } from "react-icons/ai";
 import { useUserContext } from "../Hooks/useUserContext";
 import { useAuthContext } from "../Hooks/useAuthContext";
 import axios from "axios";
+import { useTaskContext } from "../Hooks/useTaskContext";
+import { useNavigate } from "react-router-dom";
 
-function UserAssignModal({ taskId }) {
+function UserAssignModal({ taskId,updateTasks }) {
   const [isModalOpen, setModalOpen] = useState(false);
   const users = useUserContext();
-  const { userAuth } = useAuthContext();
+  const { userAuth} = useAuthContext();
+  const {tasks,setTasks,fetchAllTasks}=useTaskContext()
   const token = userAuth?.userAuth;
   const [isError, setIsError] = useState("");
+
   const openModal = () => {
     setModalOpen(true);
   };
@@ -18,7 +22,6 @@ function UserAssignModal({ taskId }) {
   const closeModal = () => {
     setModalOpen(false);
   };
-
   const assignTaskApi = async (userId, taskId) => {
     try {
       const res = await axios.put(
@@ -34,18 +37,26 @@ function UserAssignModal({ taskId }) {
           },
         }
       );
-      const res_data=await res.data
-      console.log(res_data)
+      const res_data = await res.data;
+      const {task}=res_data;
+      return task
     } catch (err) {
-      console.error("Error:", `${err}`);
-      setIsError(err.response.data.message);
+      throw err.response.data.message;
     }
   };
 
   const assignTask = (e, userId, taskId) => {
     e.preventDefault();
-    assignTaskApi(userId, taskId);
-    closeModal();
+    assignTaskApi(userId, taskId)
+      .then((task) => {
+        setTasks((prev)=>([...prev,task]))
+        fetchAllTasks()
+        closeModal();
+      })
+      .catch((err) => {
+        console.error("Error:",err);
+        setIsError(err);
+      });
   };
   return (
     <div>
@@ -73,8 +84,8 @@ function UserAssignModal({ taskId }) {
               </tr>
             </thead>
             <tbody>
-              {users.map((user, index) => {
-                const userId=user._id
+              {users?.map((user, index) => {
+                const userId = user._id;
                 return (
                   <tr key={index}>
                     <td>{user.name}</td>
@@ -84,7 +95,7 @@ function UserAssignModal({ taskId }) {
                       <div className="task-actions">
                         <button
                           id="task-action-btn"
-                          onClick={(e) => assignTask(e,userId, taskId)}
+                          onClick={(e) => assignTask(e, userId, taskId)}
                         >
                           Assign task
                         </button>
