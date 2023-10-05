@@ -28,7 +28,7 @@ const TaskContextProvider = ({ children }) => {
     if (userAuth?.role === "admin") {
       fetchAllTasks();
     }
-  }, []);
+  }, [userAuth]);
 
 
   return (

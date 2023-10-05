@@ -47,6 +47,7 @@ const LoginPage = () => {
     login_api(userLogin)
       .then((userData) => {
         setUserAuth(userData.user);
+        navigate("/assigned_task")
       })
       .catch((err) => {
         setIsError(err);

@@ -1,13 +1,46 @@
 import React, { useEffect } from "react";
 import { useTaskContext } from "../Hooks/useTaskContext";
 import UserAssignModal from "../components/UserAssignModal";
+import axios from "axios";
+import { useAuthContext } from "../Hooks/useAuthContext";
+
 const AllTasks = () => {
   const {tasks,setTasks,fetchAllTasks} = useTaskContext();
-
+  const {userAuth}=useAuthContext();
+  const token=userAuth?.userAuth;
   // useEffect(()=>{
   //   fetchAllTasks()
   // },[])
 
+  const TaskApproveApi=async(taskId,userId)=>{
+    try{
+      const res=await axios.put( `http://localhost:5000/api/v1/task/completion_approval`,
+      null,
+      {
+       headers:{
+        Authorization:`Bearer ${token}`
+       },
+       params:{
+        user_id:userId,
+        task_id:taskId
+       }
+      });
+      const res_data=await res.data;
+      const task=res_data?.task;
+      return task;
+    }catch(err){
+      throw err.response.data.message;
+    }
+  }
+
+  const onSubmitApprove=(e,taskId,userId)=>{
+    e.preventDefault();
+    TaskApproveApi(taskId,userId).then(()=>{
+      fetchAllTasks()
+    }).catch((err)=>{
+      console.log("Error:", err);
+    })
+  }
   return (
     <>
       <div className="tasks-page">
@@ -25,13 +58,15 @@ const AllTasks = () => {
                 <th>Assigned date</th>
                 <th>Task accepted</th>
                 <th>Accepted date</th>
-                <th>Task completed</th>
                 <th>Freelancer completion date</th>
+                <th>Task Approved</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {tasks?.map((task,index) => {
+                const taskId=task?._id
+                const userId=task?.result?._id
                 return (
                   <tr key={index}>
                     <td>{task.title}</td>
@@ -46,13 +81,17 @@ const AllTasks = () => {
                     <td>{task.assign_date}</td>
                     <td>{task.task_accepted ? "Yes" : "No"}</td>
                     <td>{task.accepted_date}</td>
-                    <td>{task.isCompleted ? "Yes" : "No"}</td>
                     <td>{task.freeLancer_completion}</td>
+                    <td>{task.isCompleted ? "Yes" : "No"}</td>
                     <td>
                       <div className="task-actions">
                         {task.status === "todo" ? (
                           <UserAssignModal taskId={task._id}  updateTasks={setTasks}/>
                         ) : null}
+                        {task.status === "completedByFreelancer" ? (
+                          <button onClick={(e)=>onSubmitApprove(e,taskId,userId)}>Approve</button>
+                        ) : null}
+              
                       </div>
                     </td>
                   </tr>

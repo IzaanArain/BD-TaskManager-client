@@ -35,21 +35,36 @@ const NavBar = () => {
                 <Link to="/register">Register</Link>
               </li>
             )}
-            {!token ? null : (
+            {userAuth?.role === "admin" ? (
+              <li>
+                <Link to="/create_task">Create</Link>
+              </li>
+            ) : null}
+            {userAuth?.role === "admin" ? (
+              <li>
+                <Link to="/all_tasks">Tasks</Link>
+              </li>
+            ) : null}
+            {userAuth?.role ==="user" ? (
+              <li>
+                <Link to="assigned_task">Assigned</Link>
+              </li>
+            ) : null}
+             {userAuth?.role ==="user" ? (
+              <li>
+                <Link to="accepted_task">Accepted</Link>
+              </li>
+            ) : null}
+            {userAuth?.role ==="user" ? (
+              <li>
+                <Link to="approved_task">Approved</Link>
+              </li>
+            ) : null}
+             {!token ? null : (
               <li>
                 <Link to="/edit">Edit</Link>
               </li>
             )}
-            {userAuth?.role === "admin" ? (
-              <li>
-                <Link to="/create_task">CreateTask</Link>
-              </li>
-            ) : null}
-            {userAuth?.role === "admin" ? (
-              <li>
-                <Link to="/all_tasks">UserTasks</Link>
-              </li>
-            ) : null}
             {token ? (
               <li>
                 <LogoutButton />

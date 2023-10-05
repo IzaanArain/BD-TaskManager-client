@@ -8,7 +8,7 @@ const ContextProvider = ({children}) => {
   const [users,setUsers]=useState([]);
   const {userAuth}=useAuthContext()
   const token=userAuth?.userAuth
-  // console.log("All usersContext token",token)
+  
   useEffect(()=>{
    if(token){
     const fetchUsers=async()=>{
@@ -28,7 +28,7 @@ const ContextProvider = ({children}) => {
     fetchUsers();
   }
    }
-  },[]);
+  },[userAuth]);
   return (
     <>
     <userContext.Provider value={users}>
