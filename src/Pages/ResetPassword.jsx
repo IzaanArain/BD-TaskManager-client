@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { TfiEmail } from "react-icons/tfi";
 import { RiLockPasswordFill as PasswordIcon } from "react-icons/ri";
 import { MdVisibilityOff as VisibilityOff } from "react-icons/md";
 import { MdVisibility as VisibilityOn } from "react-icons/md";
@@ -15,7 +14,7 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const email = location?.state?.email ? location?.state?.email : "";
-console.log("reset",email)
+  
   const resetPasswordApi = async (email, password) => {
     try {
       const res = await axios.post(

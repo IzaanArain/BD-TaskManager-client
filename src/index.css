@@ -57,7 +57,7 @@ a {
 }
 .submit_form form {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   align-items: center;
 }
 
@@ -357,13 +357,31 @@ table {
   background-color: tomato;
   color: white;
 }
+
+#forgot_link{
+  margin-bottom:15px;
+}
+#forgot_link:hover{
+  color: #11ebf7;
+  text-decoration: underline;
+}
 @media screen and (max-width: 1550px) {
-  .submit_page {
-    height: 90vh;
-  }
   .submit_form {
-    width: 450px;
+    width: 400px;
     margin: 10px 0px;
+  }
+  .form-group-description{
+    margin-bottom: 15px;
+  }
+  .form-group{
+    padding: 5px;
+    margin-bottom: 15px;
+  }
+  .form-group label{
+    font-size: 24px;
+  }
+  .form_heading{
+    font-size: 24px;
   }
 }
 @media screen and (max-width: 1200px) {

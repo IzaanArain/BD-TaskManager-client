@@ -8,7 +8,7 @@ const SimpleOtpVerify = () => {
   const [isError, setIsError] = useState("");
   const location = useLocation();
   const userEmail = location?.state?.email ? location?.state?.email : "";
-  console.log(userEmail)
+
   const navigate = useNavigate();
 
   const isVerified = async (data) => {
@@ -37,7 +37,7 @@ const SimpleOtpVerify = () => {
     } else if (userEmail) {
       isVerified(otpCode)
         .then((user) => {
-          console.log(user);
+          const userEmail=user?.email
           if (user?.isForgetPassword) {
             navigate("/reset_password",{state:{email:userEmail}});
           } else {
@@ -52,6 +52,7 @@ const SimpleOtpVerify = () => {
       setIsError("user must be registered before OTP verification");
     }
   };
+  
   return (
     <>
       <div className="submit_page">

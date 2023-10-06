@@ -29,8 +29,9 @@ const ForgotPassword = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     forgotPasswordApi(email)
-      .then(() => {
-        navigate("/simple_otp_verify",{state:{email:email}});
+      .then((res) => {
+        const userEmail=res?.email
+        navigate("/simple_otp_verify",{state:{email:userEmail}});
       })
       .catch((err) => {
         console.error("Error", err);

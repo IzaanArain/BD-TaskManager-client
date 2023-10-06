@@ -115,14 +115,14 @@ const LoginPage = () => {
                 {visibility ? <VisibilityOff /> : <VisibilityOn />}
               </button>
             </div>
+            <Link to="/forgot_password" id="forgot_link">Forgot Password ?</Link>
             {isError === "user is not verified" ? (
               <button id="verify_btn" onClick={getVerified}>
                 GET VERIFIED
               </button>
             ) : null}
-            <input type="submit" id="submit_btn" value="SUBMIT" />
+            <input type="submit" id="submit_btn" value="LOGIN" />
           </form>
-          <Link to="/forgot_password">Forgot Password</Link>
         </div>
       </div>
     </>
