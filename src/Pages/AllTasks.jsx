@@ -61,6 +61,7 @@ const AllTasks = () => {
                 <th>Freelancer completion date</th>
                 <th>Task Approved</th>
                 <th>Late submission</th>
+                <th>Paid Amount</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -85,6 +86,7 @@ const AllTasks = () => {
                     <td>{task.freeLancer_completion}</td>
                     <td>{task.isCompleted ? "Yes" : "No"}</td>
                     <td>{task.lateSubmission ? "late" : "No"}</td>
+                    <td>{task.paid_amount}</td>
                     <td>
                       <div className="task-actions">
                         {task.status === "todo" ? (

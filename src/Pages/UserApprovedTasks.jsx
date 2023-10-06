@@ -45,6 +45,7 @@ const UserApprovedTasks = () => {
                 <th>Freelancer completion date</th>
                 <th>Task Approved</th>
                 <th>late Submission</th>
+                <th>Paid Amount</th>
               </tr>
             </thead>
             <tbody>
@@ -61,6 +62,7 @@ const UserApprovedTasks = () => {
                     <td>{task?.freeLancer_completion}</td>
                     <td>{task?.isCompleted ? "Yes" : "No"}</td>
                     <td>{task?.lateSubmission ? "late" : "No"}</td>
+                    <td>{task.paid_amount}</td>
                   </tr>
                 );
               })}
