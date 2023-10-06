@@ -11,6 +11,7 @@ import AllTasks from "../Pages/AllTasks";
 import UserAssignedTask from "../Pages/UserAssignedTask";
 import UserAcceptedTask from "../Pages/UserAcceptedTask";
 import UserApprovedTasks from "../Pages/UserApprovedTasks";
+import SimpleOtpVerify from "../Pages/SimpleOtpVerify";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Footer from "./Footer";
@@ -105,6 +106,7 @@ const Layout = () => {
             <Route path="/role_register" element={<RoleRegister />} />
             <Route path="/otp_verify" element={<OtpVerify />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/simple_otp_verify" element={<SimpleOtpVerify/>}/>
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         )}

@@ -2,6 +2,8 @@ import React from "react";
 import { TfiEmail } from "react-icons/tfi";
 import { RiLockPasswordFill as PasswordIcon } from "react-icons/ri";
 import { SlLogin as LoginIcon } from "react-icons/sl";
+import { MdVisibilityOff as VisibilityOff } from "react-icons/md";
+import { MdVisibility as VisibilityOn } from "react-icons/md";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +16,7 @@ const LoginPage = () => {
   });
 
   const [isError, setIsError] = useState("");
-
+  const [visibility, setVisibility] = useState(false);
   const { userAuth, setUserAuth } = useAuthContext();
   const token = userAuth?.userAuth;
   const navigate = useNavigate();
@@ -95,7 +97,7 @@ const LoginPage = () => {
                 <PasswordIcon />
               </label>
               <input
-                type="password"
+                type={visibility ? "text" : "password"}
                 name="password"
                 id="password"
                 value={userLogin.password}
@@ -103,6 +105,15 @@ const LoginPage = () => {
                 placeholder="user password"
                 required
               />
+               <button
+                className="password-visibility"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setVisibility(!visibility);
+                }}
+              >
+                {visibility ? <VisibilityOff /> : <VisibilityOn />}
+              </button>
             </div>
             {isError === "user is not verified" ? (
               <button id="verify_btn" onClick={getVerified}>

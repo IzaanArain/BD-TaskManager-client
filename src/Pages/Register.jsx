@@ -1,4 +1,4 @@
-import React from "react";
+
 import { TfiEmail } from "react-icons/tfi";
 import { RiLockPasswordFill as PasswordIcon } from "react-icons/ri";
 import { FaRegUserCircle as UserLogo } from "react-icons/fa";
@@ -33,9 +33,7 @@ const Register = () => {
       const res_data = await res.data;
       return res_data;
     } catch (err) {
-      setIsError(err.response.data.message);
-      console.error("msg:", err.response.data.message);
-      console.error("Error: ", err.response.data.message);
+      throw err.response.data.message
     }
   };
 
@@ -49,8 +47,8 @@ const Register = () => {
           setIsError("");
         }
       }).catch((err)=>{
-        setIsError(err.response.data.message)
-        console.error("Error: ", err.response.data.message);
+        setIsError(err)
+        console.error("Error: ",err);
       });
     } else {
       console.error("Error:", "Password does not match");
