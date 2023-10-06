@@ -3,8 +3,8 @@ import React, { useEffect, useState, useRef, Fragment } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const OtpVerify = () => {
-  const location=useLocation();
-  const userEmail=location?.state?.email ? location?.state?.email : "";
+  const location = useLocation();
+  const userEmail = location?.state?.email ? location?.state?.email : "";
   const [otpArr, setOtpArr] = useState(["", "", "", "", "", ""]);
   const [isError, setIsError] = useState("");
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const OtpVerify = () => {
     const newOTP = [...otpArr];
     newOTP[i] = value;
     setOtpArr(newOTP);
-    // logic to move to the next input 
+    // logic to move to the next input
     if (value === "" && i > 0) {
       inputRefs.current[i - 1].focus();
     } else if (i < otpArr.length - 1 && value !== "") {
@@ -27,7 +27,7 @@ const OtpVerify = () => {
     try {
       const res = await axios.post(
         "http://localhost:5000/api/v1/users/otp_verify",
-        { code: data, email:userEmail},
+        { code: data, email: userEmail },
         {
           headers: {
             "Content-Type": "application/json",
@@ -46,15 +46,14 @@ const OtpVerify = () => {
     const otp_input = otpArr.join("");
     if (!otp_input) {
       setIsError("Please enter complete OTP Code");
-    }else if(userEmail){
-      isVerified(otp_input).then((user)=>{
-        if(user?.isVerified){
-          navigate("/complete_profile")
+    } else if (userEmail) {
+      isVerified(otp_input).then((user) => {
+        if (user?.isVerified) {
+          navigate("/complete_profile");
         }
-      })
-    }
-    else{
-      setIsError("user must be registered before OTP verification")
+      });
+    } else {
+      setIsError("user must be registered before OTP verification");
     }
   };
   return (

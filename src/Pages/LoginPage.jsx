@@ -6,7 +6,7 @@ import { MdVisibilityOff as VisibilityOff } from "react-icons/md";
 import { MdVisibility as VisibilityOn } from "react-icons/md";
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../Hooks/useAuthContext";
 
 const LoginPage = () => {
@@ -122,6 +122,7 @@ const LoginPage = () => {
             ) : null}
             <input type="submit" id="submit_btn" value="SUBMIT" />
           </form>
+          <Link to="/forgot_password">Forgot Password</Link>
         </div>
       </div>
     </>

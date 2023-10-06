@@ -8,8 +8,8 @@ const SimpleOtpVerify = () => {
   const [isError, setIsError] = useState("");
   const location = useLocation();
   const userEmail = location?.state?.email ? location?.state?.email : "";
-
-  const navigate=useNavigate()
+  console.log(userEmail)
+  const navigate = useNavigate();
 
   const isVerified = async (data) => {
     try {
@@ -31,15 +31,23 @@ const SimpleOtpVerify = () => {
   const otpOnSubmit = (e) => {
     e.preventDefault();
     if (!otpCode) {
-        setIsError("enter OTP code");
+      setIsError("enter OTP code");
     } else if (otpCode.length !== 6) {
-        setIsError("OTP code must be six digits");
+      setIsError("OTP code must be six digits");
     } else if (userEmail) {
-      isVerified(otpCode).then((user) => {
-        if (user?.isVerified) {
-          navigate("/complete_profile");
-        }
-      });
+      isVerified(otpCode)
+        .then((user) => {
+          console.log(user);
+          if (user?.isForgetPassword) {
+            navigate("/reset_password",{state:{email:userEmail}});
+          } else {
+            navigate("/login");
+          }
+        })
+        .catch((err) => {
+          console.error("Error", err);
+          setIsError(err);
+        });
     } else {
       setIsError("user must be registered before OTP verification");
     }
@@ -76,7 +84,7 @@ const SimpleOtpVerify = () => {
                 required
               />
             </div>
-            <input type="submit" id="otp-btn" value="Verify" />
+            <input type="submit" id="submit_btn" value="Verify" />
           </form>
         </div>
       </div>
