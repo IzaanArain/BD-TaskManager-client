@@ -70,7 +70,9 @@ const LoginPage = () => {
               <LoginIcon />
             </div>
             <div className="form_heading">
+              <hr />
               <p>Login</p>
+              <hr />
             </div>
             {isError && (
               <div id="error_block">
