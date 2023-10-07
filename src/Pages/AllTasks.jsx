@@ -3,7 +3,8 @@ import { useTaskContext } from "../Hooks/useTaskContext";
 import UserAssignModal from "../components/UserAssignModal";
 import axios from "axios";
 import { useAuthContext } from "../Hooks/useAuthContext";
-
+import DescriptionModal from "../components/DescriptionModal";
+import DeleteTaskModal from "../components/DeleteTaskModal";
 const AllTasks = () => {
   const {tasks,setTasks,fetchAllTasks} = useTaskContext();
   const {userAuth}=useAuthContext();
@@ -72,7 +73,7 @@ const AllTasks = () => {
                 return (
                   <tr key={index} id={task.lateSubmission ? "late" : null}>
                     <td>{task.title}</td>
-                    <td>{task.description}</td>
+                    <td><DescriptionModal description={task.description}/></td>
                     <td>{task.amount}</td>
                     <td>{task.create_date}</td>
                     <td>{task.completion_date}</td>
@@ -95,7 +96,7 @@ const AllTasks = () => {
                         {task.status === "completedByFreelancer" ? (
                           <button onClick={(e)=>onSubmitApprove(e,taskId,userId)} id="task-action-btn">Approve</button>
                         ) : null}
-              
+                        <DeleteTaskModal/>
                       </div>
                     </td>
                   </tr>

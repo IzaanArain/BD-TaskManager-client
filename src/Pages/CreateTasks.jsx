@@ -100,17 +100,22 @@ const CreateTasks = () => {
                 required
               />
             </div>
-            <div className="form-group-description">
+           
+           <div className="form-group-description">
               <label htmlFor="description">Description:</label>
+              <div className="overflow">
               <textarea
                 name="description"
                 id="description"
-                rows="5"
+                rows={6}
+                cols={33}
                 value={newTask.description}
                 onChange={onChangeHandler}
                 required
               ></textarea>
+              </div>
             </div>
+           
             <div className="form-group">
               <label htmlFor="amount">Amount:</label>
               <input
