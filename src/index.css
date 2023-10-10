@@ -377,6 +377,20 @@ table {
   width: 100%;
   height: 400px;
 }
+.delete-task-modal{
+  margin-top: 50px;
+  text-align: center;
+}
+.btn-modal-con{
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.modal-btn{
+  padding: 10px;
+  font-size: 30px;
+}
 @media screen and (max-width: 1550px) {
   .submit_form {
     width: 400px;

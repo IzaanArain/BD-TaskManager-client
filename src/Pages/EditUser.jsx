@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useAuthContext } from "../Hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import DeleteButton from "../components/DeleteButton";
+import DeleteUserModal from "../components/DeleteUserModal";
 import userPic from "../assets/user-image.jpg";
 const EditUser = () => {
   const { userAuth, setUserAuth } = useAuthContext();
@@ -146,7 +147,7 @@ const EditUser = () => {
               />
             </div>
             <input type="submit" id="submit_btn" value="SUBMIT" />
-            <DeleteButton />
+           <DeleteUserModal/>
           </form>
         </div>
       </div>

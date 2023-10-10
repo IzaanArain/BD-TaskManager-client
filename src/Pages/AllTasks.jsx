@@ -96,7 +96,7 @@ const AllTasks = () => {
                         {task.status === "completedByFreelancer" ? (
                           <button onClick={(e)=>onSubmitApprove(e,taskId,userId)} id="task-action-btn">Approve</button>
                         ) : null}
-                        <DeleteTaskModal/>
+                        {/* <DeleteTaskModal/> */}
                       </div>
                     </td>
                   </tr>
